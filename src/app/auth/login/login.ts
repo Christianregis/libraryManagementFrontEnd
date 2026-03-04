@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../core/service/auth';
 import { ReactiveFormsModule } from '@angular/forms';
 @Component({
@@ -32,7 +32,7 @@ export class LoginComponent {
     return this.loginForm.controls;
   }
 
-  onSubmit(){
+  onSubmit() {
 
     this.submitted = true;
 
@@ -45,8 +45,17 @@ export class LoginComponent {
     this.loading = true;
     this.authService.login(this.loginForm.value).subscribe({
       next: (data) => {
-        console.log("Connexion reussie !", data)
+        const role = data.role
 
+        this.authService.setUser(data)
+        this.authService.setCredentials(data.email, data.confirm_password)
+
+        console.log("Connexion reussie !", localStorage)
+        if (role == "ADMIN") {
+          this.router.navigate(['admin'])
+        } else {
+          this.router.navigate(['member'])
+        }
       },
       error: (error) => {
         this.error = error.message || 'Login failed';

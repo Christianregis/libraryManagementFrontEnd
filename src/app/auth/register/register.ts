@@ -26,6 +26,7 @@ export class RegisterComponent{
       prenom: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      confirm_password: [, [Validators.required, Validators.minLength(6)]],
     });
   }
   redirectToLogin = 'login' // Page de connexion
