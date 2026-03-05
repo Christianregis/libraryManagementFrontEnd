@@ -370,73 +370,22 @@
       </div>
     </div>
 
-    <h1>Dashboard</h1>
-
-    <!-- Totals Section -->
-    <h2 class="section-title" id="totals">Totaux</h2>
-    <div class="totals">
-      <div class="total-card">
-        <h3>Utilisateurs</h3>
-        <p id="users-count">{{ usersCount }}</p>
-      </div>
-      <div class="total-card">
-        <h3>Livres</h3>
-        <p id="books-count">{{ booksCount }}</p>
-      </div>
-      <div class="total-card">
-        <h3>Catégories</h3>
-        <p id="categories-count">{{ categoriesCount }}</p>
-      </div>
-      <div class="total-card">
-        <h3>Emprunts</h3>
-        <p id="emprunts-count">{{ borrowsCount }}</p>
-      </div>
-    </div>
+    <h1>Gestionnaires de Categories</h1>
 
     <!-- Users Table -->
-    <h2 class="section-title" id="users">Utilisateurs</h2>
+    <h2 class="section-title" id="users">Categories</h2>
     <table>
       <thead>
         <tr>
           <th>ID</th>
-          <th>Nom | Prenom</th>
-          <th>Email</th>
-          <th>Role</th>
+          <th>Nom</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let userInfo of users">
+        <tr *ngFor="let category of categories">
           <td>#</td>
-          <td>{{ userInfo.name }} | {{ userInfo.prenom }}</td>
-          <td>{{ userInfo.email }}</td>
-          <td>{{ userInfo.role }}</td>
-          <td class="action-buttons">
-            <button class="btn-edit">Modifier</button>
-            <button class="btn-delete">Supprimer</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Books Table -->
-    <h2 class="section-title" id="books">Livres</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Titre</th>
-          <th>Auteur</th>
-          <th>Catégorie ID</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let book of books">
-          <td>#</td>
-          <td>{{ book.title }}</td>
-          <td>{{ book.auteur }}</td>
-          <td>{{ book.categoryId }}</td>
+          <td>{{ category.name }}</td>
           <td class="action-buttons">
             <button class="btn-edit">Modifier</button>
             <button class="btn-delete">Supprimer</button>
@@ -446,13 +395,6 @@
     </table>
 
   </div>
-
-  <script>
-    function logout() {
-      alert("Déconnexion réussie !");
-      window.location.href = "login.html";
-    }
-  </script>
 </body>
 
 </html>

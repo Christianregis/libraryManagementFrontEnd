@@ -10,6 +10,7 @@ import { Users } from './admin/users/users';
 import { Borrow } from './member/borrow/borrow';
 import { Borrows } from './admin/borrows/borrows';
 import { Catalogs } from './member/catalogs/catalogs';
+import { Categories } from './admin/categories/categories';
 
 export const routes: Routes = [
   {
@@ -22,11 +23,11 @@ export const routes: Routes = [
 
   {
     path: 'admin',
-    component: DashboardComponent,
+
     canActivate: [adminGuard],
     children: [
       {
-        path: 'dashboard', component: DashboardComponent
+        path: '', component: DashboardComponent
       },
 
       {
@@ -39,6 +40,10 @@ export const routes: Routes = [
 
       {
         path: 'borrows', component: Borrows
+      },
+
+      {
+        path: 'categories', component: Categories
       }
     ]
   },

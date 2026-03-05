@@ -23,7 +23,17 @@ export class AdminService {
   }
 
   getBorrowsCount(): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/borrows/count`);
+    return this.http.get<number>(`${this.baseUrl}/emprunts/count`);
   }
 
+  getUsers(){
+    return this.http.get<any[]>(`${this.baseUrl}/users`)
+  }
+
+  getAllBooks(){
+    return this.http.get<any[]>(`${this.baseUrl}/books`)
+  }
+  getAllCategories(){
+    return this.http.get<any[]>(`${this.baseUrl}/categories`)
+  }
 }
