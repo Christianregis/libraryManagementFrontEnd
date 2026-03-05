@@ -36,4 +36,8 @@ export class AdminService {
   getAllCategories(){
     return this.http.get<any[]>(`${this.baseUrl}/categories`)
   }
+
+  getAllBorrows(){
+    return this.http.get<any[]>(`${this.baseUrl}/emprunts`)
+  }
 }

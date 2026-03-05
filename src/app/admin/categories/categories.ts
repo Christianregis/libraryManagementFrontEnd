@@ -23,7 +23,10 @@ export class Categories implements OnInit {
 
   goToHomeAdmin = "admin";
   goToCategoryPage = "admin/categories"
-  
+  goToUsersPage = "admin/users"
+  goToBooksPage =  "admin/books";
+    goToBorrowsPage = "admin/borrows"
+
   getCategories(){
     this.adminService.getAllCategories().subscribe(data=>{
       this.categories = data

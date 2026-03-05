@@ -25,6 +25,9 @@ export class DashboardComponent implements OnInit {
 
   goToHomeAdmin = "admin";
   goToCategoryPage = "admin/categories"
+  goToUsersPage = "admin/users"
+  goToBooksPage = "admin/books";
+  goToBorrowsPage = "admin/borrows"
 
   logout() {
     this.authService.logout()
