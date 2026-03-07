@@ -50,7 +50,6 @@ export const routes: Routes = [
 
   {
     path: 'member',
-    component: MeComponent,
     canActivate: [memberGuard],
     children: [
       {
@@ -58,7 +57,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'catalogs', component: Catalogs,
+        path: '', component: Catalogs,
       },
 
       {

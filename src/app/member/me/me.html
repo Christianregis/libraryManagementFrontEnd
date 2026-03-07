@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LibraryManager - Catalogue de Livres</title>
+  <title>LibraryManager - Mon Profil</title>
 
   <!-- Google Fonts -->
   <link
@@ -249,82 +249,83 @@
     }
 
     /* ============================================
-           BARRE DE RECHERCHE & FILTRES
+           PROFIL SECTION
            ============================================ */
-    .search-filter-bar {
-      display: flex;
-      gap: 16px;
+    .profile-header {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 30px;
       margin-bottom: 30px;
-      flex-wrap: wrap;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
       align-items: center;
+      gap: 30px;
     }
 
-    .search-container {
+    .profile-avatar-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-avatar-large {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #3b82f6;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-info {
       flex: 1;
-      min-width: 250px;
-      position: relative;
     }
 
-    .search-container input {
-      width: 100%;
-      padding: 12px 16px 12px 40px;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
+    .profile-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .profile-email {
       font-size: 14px;
-      background-color: #ffffff;
-      transition: all 0.3s ease;
-    }
-
-    .search-container input:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    .search-container i {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
       color: #64748b;
-      font-size: 16px;
+      margin-bottom: 16px;
     }
 
-    .filter-select {
-      padding: 12px 16px;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      background-color: #ffffff;
+    .profile-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 180px;
+      font-weight: 600;
+      color: #10b981;
     }
 
-    .filter-select:hover {
-      border-color: #3b82f6;
-    }
-
-    .filter-select:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    .status-badge {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #10b981;
     }
 
     /* ============================================
-           GRILLE DE LIVRES
+           GRILLE DE CARTES D'INFORMATION
            ============================================ */
-    .books-grid {
+    .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 24px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
-    .book-card {
+    .info-card {
       background-color: #ffffff;
       border-radius: 12px;
-      overflow: hidden;
+      padding: 24px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
       display: flex;
@@ -334,146 +335,216 @@
       color: inherit;
     }
 
-    .book-card:hover {
-      transform: translateY(-8px);
+    .info-card:hover {
+      transform: translateY(-4px);
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
-    .book-cover {
+    .info-card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background-color: rgba(59, 130, 246, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 24px;
+      color: #3b82f6;
+    }
+
+    .info-card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-card-value {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* ============================================
+           SECTIONS DE DÉTAILS
+           ============================================ */
+    .section {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: #3b82f6;
+      font-size: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .form-input,
+    .form-select {
       width: 100%;
-      height: 220px;
-      overflow: hidden;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
       background-color: #f8fafc;
+      transition: all 0.3s ease;
     }
 
-    .book-cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
 
-    .book-card:hover .book-cover img {
-      transform: scale(1.05);
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
 
-    .book-info {
-      padding: 20px;
-      flex: 1;
+    /* ============================================
+           LISTE D'EMPRUNTS
+           ============================================ */
+    .borrows-list {
       display: flex;
       flex-direction: column;
+      gap: 12px;
     }
 
-    .book-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 6px;
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .book-author {
-      font-size: 13px;
-      color: #64748b;
-      margin-bottom: 12px;
-    }
-
-    .book-meta {
+    .borrow-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #e2e8f0;
-      font-size: 12px;
+      padding: 16px;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      border-left: 4px solid #3b82f6;
+      transition: all 0.3s ease;
     }
 
-    .book-category {
-      display: inline-block;
-      background-color: rgba(59, 130, 246, 0.1);
-      color: #3b82f6;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-weight: 600;
+    .borrow-item:hover {
+      background-color: #f1f5f9;
     }
 
-    .book-availability {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-weight: 600;
-    }
-
-    .availability-badge {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .availability-badge.available {
-      background-color: #10b981;
-    }
-
-    .availability-badge.unavailable {
-      background-color: #ef4444;
-    }
-
-    .book-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: auto;
-    }
-
-    .btn-details {
+    .borrow-info {
       flex: 1;
-      padding: 10px 14px;
+    }
+
+    .borrow-title {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .borrow-date {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .borrow-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .borrow-status.active {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .borrow-status.expired {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    /* ============================================
+           BOUTONS
+           ============================================ */
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 12px 24px;
       background-color: #3b82f6;
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
+      gap: 8px;
       text-decoration: none;
     }
 
-    .btn-details:hover {
+    .btn-primary:hover {
       background-color: #2563eb;
       transform: translateY(-2px);
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    .btn-borrow {
-      flex: 1;
-      padding: 10px 14px;
-      background-color: #0f172a;
-      color: white;
+    .btn-secondary {
+      padding: 12px 24px;
+      background-color: #e2e8f0;
+      color: #1e293b;
       border: none;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
+      gap: 8px;
       text-decoration: none;
     }
 
-    .btn-borrow:hover {
-      background-color: #1e3a8a;
+    .btn-secondary:hover {
+      background-color: #cbd5e1;
       transform: translateY(-2px);
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
@@ -532,13 +603,12 @@
            RESPONSIVE DESIGN
            ============================================ */
     @media (max-width: 1024px) {
-      .books-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 20px;
-      }
-
       .page-content {
         padding: 20px;
+      }
+
+      .info-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       }
     }
 
@@ -566,62 +636,59 @@
         display: none;
       }
 
-      .books-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 16px;
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
       }
 
       .page-title {
         font-size: 24px;
       }
 
-      .search-filter-bar {
+      .page-content {
+        padding: 16px;
+      }
+
+      .info-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .button-group {
         flex-direction: column;
       }
 
-      .search-container {
-        min-width: 100%;
-      }
-
-      .filter-select {
+      .btn-primary,
+      .btn-secondary {
         width: 100%;
-      }
-
-      .page-content {
-        padding: 16px;
+        justify-content: center;
       }
     }
 
     @media (max-width: 480px) {
-      .books-grid {
-        grid-template-columns: 1fr;
+      .profile-header {
+        padding: 16px;
+      }
+
+      .profile-name {
+        font-size: 20px;
       }
 
       .page-title {
         font-size: 20px;
       }
 
-      .book-card {
-        display: grid;
-        grid-template-columns: 120px 1fr;
-        height: auto;
+      .info-card {
+        padding: 16px;
       }
 
-      .book-cover {
-        height: 160px;
-        grid-column: 1;
-        grid-row: 1 / 4;
-      }
-
-      .book-info {
-        grid-column: 2;
-        grid-row: 1 / 4;
-        padding: 12px;
-      }
-
-      .book-actions {
-        grid-column: 1 / 3;
-        margin-top: 12px;
+      .section {
+        padding: 16px;
       }
 
       .navbar-user {
@@ -635,6 +702,16 @@
       .btn-logout {
         padding: 6px 12px;
         font-size: 12px;
+      }
+
+      .borrow-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .borrow-status {
+        align-self: flex-start;
       }
     }
 
@@ -664,6 +741,7 @@
 <body>
   <div class="container-main">
     <!-- SIDEBAR -->
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <div class="sidebar-logo">
@@ -673,15 +751,15 @@
       </div>
 
       <nav class="sidebar-nav">
-        <a href="#catalogue" class="nav-item">
+        <a [href]="goToCatalogesPage" class="nav-item">
           <i class="fas fa-book"></i>
           <span>Catalogue</span>
         </a>
-        <a href="#emprunts" class="nav-item">
+        <a [href]="goToEmpruntsPage" class="nav-item">
           <i class="fas fa-bookmark"></i>
           <span>Mes emprunts</span>
         </a>
-        <a href="#profil" class="nav-item">
+        <a [href]="goToMePage" class="nav-item">
           <i class="fas fa-user-circle"></i>
           <span>Mes informations</span>
         </a>
@@ -694,15 +772,15 @@
       <nav class="navbar">
         <div class="navbar-welcome">
           <i class="fas fa-wave-hand"></i>
-          <span>Bienvenue, Jean Dupont</span>
+          <span>Bienvenue, {{ user?.prenom }} {{ user?.name }}</span>
         </div>
         <div class="navbar-user">
           <div class="user-profile">
-            <img src="https://unsplash.com/photos/a-wooden-library-filled-with-books-ix61qSAq2Fw" alt="Profile"
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Profile"
               class="user-avatar">
-            <span class="user-name">Jean Dupont</span>
+            <span class="user-name">{{ user?.prenom }} {{ user?.name }}</span>
           </div>
-          <a href="#" class="btn-logout">
+          <a (click)="logout()" class="btn-logout">
             <i class="fas fa-sign-out-alt"></i>
             <span>Déconnexion</span>
           </a>
@@ -712,239 +790,132 @@
       <!-- PAGE CONTENT -->
       <div class="page-content">
         <div class="page-header">
-          <h2 class="page-title">Catalogue de Livres</h2>
-          <p class="page-subtitle">Découvrez notre collection complète de livres et empruntez vos favoris</p>
+          <h2 class="page-title">Mon Profil</h2>
+          <p class="page-subtitle">Gérez vos informations personnelles et vos préférences</p>
         </div>
 
-        <!-- SEARCH & FILTER BAR -->
-        <div class="search-filter-bar">
-          <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Rechercher un livre, un auteur...">
+        <!-- PROFILE HEADER -->
+        <div class="profile-header">
+          <div class="profile-avatar-section">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Profile"
+              class="profile-avatar-large">
+            <button class="btn-secondary">
+              <i class="fas fa-camera"></i>
+              <span>Changer la photo</span>
+            </button>
           </div>
-          <select class="filter-select">
-            <option value="">Toutes les catégories</option>
-            <option value="Fiction">Fiction</option>
-            <option value="Science-Fiction">Science-Fiction</option>
-            <option value="Développement">Développement</option>
-            <option value="Biographie">Biographie</option>
-            <option value="Mystère">Mystère</option>
-            <option value="Romance">Romance</option>
-          </select>
-        </div>
-
-        <!-- BOOKS GRID -->
-        <div class="books-grid">
-          <!-- Livre 1 -->
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=300&h=400&fit=crop"
-                alt="The Great Gatsby">
-            </div>
-            <div class="book-info">
-              <h3 class="book-title">The Great Gatsby</h3>
-              <p class="book-author">par F. Scott Fitzgerald</p>
-              <div class="book-meta">
-                <span class="book-category">Fiction</span>
-                <span class="book-availability">
-                  <span class="availability-badge available"></span>
-                  Disponible
-                </span>
-              </div>
-              <div class="book-actions">
-                <button class="btn-details">
-                  <i class="fas fa-eye"></i>
-                  <span>Voir détails</span>
-                </button>
-                <button class="btn-borrow">
-                  <i class="fas fa-download"></i>
-                  <span>Emprunter</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Livre 2 -->
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=300&h=400&fit=crop" alt="Dune">
-            </div>
-            <div class="book-info">
-              <h3 class="book-title">Dune</h3>
-              <p class="book-author">par Frank Herbert</p>
-              <div class="book-meta">
-                <span class="book-category">Science-Fiction</span>
-                <span class="book-availability">
-                  <span class="availability-badge available"></span>
-                  Disponible
-                </span>
-              </div>
-              <div class="book-actions">
-                <button class="btn-details">
-                  <i class="fas fa-eye"></i>
-                  <span>Voir détails</span>
-                </button>
-                <button class="btn-borrow">
-                  <i class="fas fa-download"></i>
-                  <span>Emprunter</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Livre 3 -->
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=400&fit=crop"
-                alt="Clean Code">
-            </div>
-            <div class="book-info">
-              <h3 class="book-title">Clean Code</h3>
-              <p class="book-author">par Robert C. Martin</p>
-              <div class="book-meta">
-                <span class="book-category">Développement</span>
-                <span class="book-availability">
-                  <span class="availability-badge unavailable"></span>
-                  Indisponible
-                </span>
-              </div>
-              <div class="book-actions">
-                <button class="btn-details">
-                  <i class="fas fa-eye"></i>
-                  <span>Voir détails</span>
-                </button>
-                <button class="btn-borrow disabled" disabled>
-                  <i class="fas fa-download"></i>
-                  <span>Emprunter</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Livre 4 -->
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=300&h=400&fit=crop"
-                alt="Steve Jobs">
-            </div>
-            <div class="book-info">
-              <h3 class="book-title">Steve Jobs</h3>
-              <p class="book-author">par Walter Isaacson</p>
-              <div class="book-meta">
-                <span class="book-category">Biographie</span>
-                <span class="book-availability">
-                  <span class="availability-badge available"></span>
-                  Disponible
-                </span>
-              </div>
-              <div class="book-actions">
-                <button class="btn-details">
-                  <i class="fas fa-eye"></i>
-                  <span>Voir détails</span>
-                </button>
-                <button class="btn-borrow">
-                  <i class="fas fa-download"></i>
-                  <span>Emprunter</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Livre 7 -->
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=300&h=400&fit=crop" alt="1984">
-            </div>
-            <div class="book-info">
-              <h3 class="book-title">1984</h3>
-              <p class="book-author">par George Orwell</p>
-              <div class="book-meta">
-                <span class="book-category">Fiction</span>
-                <span class="book-availability">
-                  <span class="availability-badge unavailable"></span>
-                  Indisponible
-                </span>
-              </div>
-              <div class="book-actions">
-                <button class="btn-details">
-                  <i class="fas fa-eye"></i>
-                  <span>Voir détails</span>
-                </button>
-                <button class="btn-borrow disabled" disabled>
-                  <i class="fas fa-download"></i>
-                  <span>Emprunter</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Livre 8 -->
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=300&h=400&fit=crop"
-                alt="Foundation">
-            </div>
-            <div class="book-info">
-              <h3 class="book-title">Foundation</h3>
-              <p class="book-author">par Isaac Asimov</p>
-              <div class="book-meta">
-                <span class="book-category">Science-Fiction</span>
-                <span class="book-availability">
-                  <span class="availability-badge available"></span>
-                  Disponible
-                </span>
-              </div>
-              <div class="book-actions">
-                <button class="btn-details">
-                  <i class="fas fa-eye"></i>
-                  <span>Voir détails</span>
-                </button>
-                <button class="btn-borrow">
-                  <i class="fas fa-download"></i>
-                  <span>Emprunter</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Livre 9 -->
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=300&h=400&fit=crop"
-                alt="Design Patterns">
-            </div>
-            <div class="book-info">
-              <h3 class="book-title">Design Patterns</h3>
-              <p class="book-author">par Gang of Four</p>
-              <div class="book-meta">
-                <span class="book-category">Développement</span>
-                <span class="book-availability">
-                  <span class="availability-badge available"></span>
-                  Disponible
-                </span>
-              </div>
-              <div class="book-actions">
-                <button class="btn-details">
-                  <i class="fas fa-eye"></i>
-                  <span>Voir détails</span>
-                </button>
-                <button class="btn-borrow">
-                  <i class="fas fa-download"></i>
-                  <span>Emprunter</span>
-                </button>
-              </div>
+          <div class="profile-info">
+            <h3 class="profile-name">{{ user?.prenom }} {{ user?.name }}</h3>
+            <p class="profile-email">{{ user?.email }}</p>
+            <div class="profile-status">
+              <span class="status-badge"></span>
+              <span>Compte actif</span>
             </div>
           </div>
         </div>
 
-        <!-- PAGINATION -->
-        <div class="pagination">
-          <span class="disabled">← Précédent</span>
-          <a class="active">1</a>
-          <a class="disabled">2</a>
-          <a class="disabled">3</a>
-          <span>...</span>
-          <a href="#">Suivant →</a>
+        <!-- STATISTIQUES -->
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <div class="info-card-title">Livres Empruntés</div>
+            <div class="info-card-value">12</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="info-card-title">Membre depuis</div>
+            <div class="info-card-value">2 ans</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="info-card-title">Évaluations</div>
+            <div class="info-card-value">4.8/5</div>
+          </div>
+        </div>
+
+        <!-- INFORMATIONS PERSONNELLES -->
+        <div class="section">
+          <h3 class="section-title">
+            <i class="fas fa-user"></i>
+            Informations Personnelles
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Prénom</label>
+              <input type="text" class="form-input" [value]="user?.prenom" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nom</label>
+              <input type="text" class="form-input" [value]="user?.name" disabled>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" [value]="user?.email" disabled>
+            </div>
+          <div class="button-group">
+            <button class="btn-primary">
+              <i class="fas fa-edit"></i>
+              <span>Modifier</span>
+            </button>
+          </div>
+        </div>
+        </div>
+
+        <!-- EMPRUNTS EN COURS -->
+        <div class="section">
+          <h3 class="section-title">
+            <i class="fas fa-history"></i>
+            Emprunts en Cours
+          </h3>
+          <div class="borrows-list">
+            <div class="borrow-item">
+              <div class="borrow-info">
+                <div class="borrow-title">The Great Gatsby</div>
+                <div class="borrow-date">Emprunté le 15 janvier 2026 - À rendre le 29 janvier 2026</div>
+              </div>
+              <span class="borrow-status active">En cours</span>
+            </div>
+            <div class="borrow-item">
+              <div class="borrow-info">
+                <div class="borrow-title">Dune</div>
+                <div class="borrow-date">Emprunté le 10 janvier 2026 - À rendre le 24 janvier 2026</div>
+              </div>
+              <span class="borrow-status active">En cours</span>
+            </div>
+            <div class="borrow-item">
+              <div class="borrow-info">
+                <div class="borrow-title">Foundation</div>
+                <div class="borrow-date">Emprunté le 5 janvier 2026 - À rendre le 19 janvier 2026</div>
+              </div>
+              <span class="borrow-status expired">Retard</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SÉCURITÉ -->
+        <div class="section">
+          <h3 class="section-title">
+            <i class="fas fa-lock"></i>
+            Role
+          </h3>
+          <div class="form-group">
+            <label class="form-label">Votre status</label>
+            <input type="text" class="form-input" [value]="user?.role" disabled>
+          </div>
+          <div class="button-group">
+            <button class="btn-secondary" (click)="logout()">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Déconnexion</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

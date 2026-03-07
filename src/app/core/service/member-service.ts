@@ -13,4 +13,8 @@ export class MemberService {
   getAllBooks(){
     return this.http.get(`${this.baseUrl}/books`)
   }
+
+  getAllCategories(){
+    return this.http.get(`${this.baseUrl}/categories`)
+  }
 }
