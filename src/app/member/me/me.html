@@ -1,1 +1,954 @@
-<p>me works! {{ user?.name }}</p>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LibraryManager - Catalogue de Livres</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ============================================
+           RESET GLOBAL
+           ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ============================================
+           LAYOUT PRINCIPAL
+           ============================================ */
+    .container-main {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f8fafc;
+    }
+
+    /* ============================================
+           SIDEBAR - MENU LATÉRAL
+           ============================================ */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: white;
+      padding: 30px 20px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .sidebar-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-logo {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sidebar-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-left-color: #3b82f6;
+      transform: translateX(4px);
+    }
+
+    .nav-item:active {
+      background-color: #3b82f6;
+      color: white;
+      border-left-color: white;
+    }
+
+    .nav-item i {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* ============================================
+           MAIN CONTENT AREA
+           ============================================ */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ============================================
+           NAVBAR - BARRE SUPÉRIEURE
+           ============================================ */
+    .navbar {
+      background-color: #ffffff;
+      padding: 16px 30px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .navbar-welcome {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar-welcome i {
+      color: #3b82f6;
+      font-size: 18px;
+    }
+
+    .navbar-user {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #3b82f6;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .btn-logout {
+      padding: 8px 16px;
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-logout:hover {
+      background-color: #dc2626;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ============================================
+           CONTENU PRINCIPAL
+           ============================================ */
+    .page-content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .page-header {
+      margin-bottom: 30px;
+    }
+
+    .page-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    /* ============================================
+           BARRE DE RECHERCHE & FILTRES
+           ============================================ */
+    .search-filter-bar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-container {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 12px 16px 12px 40px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      background-color: #ffffff;
+      transition: all 0.3s ease;
+    }
+
+    .search-container input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .search-container i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 16px;
+    }
+
+    .filter-select {
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      background-color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 180px;
+    }
+
+    .filter-select:hover {
+      border-color: #3b82f6;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    /* ============================================
+           GRILLE DE LIVRES
+           ============================================ */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .book-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .book-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-cover {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .book-card:hover .book-cover img {
+      transform: scale(1.05);
+    }
+
+    .book-info {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .book-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .book-author {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .book-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 12px;
+    }
+
+    .book-category {
+      display: inline-block;
+      background-color: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .book-availability {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 600;
+    }
+
+    .availability-badge {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .availability-badge.available {
+      background-color: #10b981;
+    }
+
+    .availability-badge.unavailable {
+      background-color: #ef4444;
+    }
+
+    .book-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn-details {
+      flex: 1;
+      padding: 10px 14px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-details:hover {
+      background-color: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-borrow {
+      flex: 1;
+      padding: 10px 14px;
+      background-color: #0f172a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-borrow:hover {
+      background-color: #1e3a8a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-borrow:disabled,
+    .btn-borrow.disabled {
+      background-color: #cbd5e1;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ============================================
+           PAGINATION
+           ============================================ */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+    }
+
+    .pagination a,
+    .pagination span {
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      background-color: #ffffff;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #1e293b;
+    }
+
+    .pagination a:hover {
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .pagination .active {
+      background-color: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+
+    .pagination .disabled {
+      color: #cbd5e1;
+      cursor: not-allowed;
+    }
+
+    /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+    @media (max-width: 1024px) {
+      .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+      }
+
+      .page-content {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 250px;
+        position: absolute;
+        left: -250px;
+        transition: left 0.3s ease;
+      }
+
+      .sidebar:target {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .navbar {
+        padding: 12px 16px;
+      }
+
+      .navbar-welcome {
+        display: none;
+      }
+
+      .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .search-filter-bar {
+        flex-direction: column;
+      }
+
+      .search-container {
+        min-width: 100%;
+      }
+
+      .filter-select {
+        width: 100%;
+      }
+
+      .page-content {
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .books-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-title {
+        font-size: 20px;
+      }
+
+      .book-card {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        height: auto;
+      }
+
+      .book-cover {
+        height: 160px;
+        grid-column: 1;
+        grid-row: 1 / 4;
+      }
+
+      .book-info {
+        grid-column: 2;
+        grid-row: 1 / 4;
+        padding: 12px;
+      }
+
+      .book-actions {
+        grid-column: 1 / 3;
+        margin-top: 12px;
+      }
+
+      .navbar-user {
+        gap: 8px;
+      }
+
+      .user-name {
+        display: none;
+      }
+
+      .btn-logout {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+    }
+
+    /* ============================================
+           SCROLLBAR STYLING
+           ============================================ */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-main">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Library">
+        </div>
+        <h1 class="sidebar-title">LibraryManager</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#catalogue" class="nav-item">
+          <i class="fas fa-book"></i>
+          <span>Catalogue</span>
+        </a>
+        <a href="#emprunts" class="nav-item">
+          <i class="fas fa-bookmark"></i>
+          <span>Mes emprunts</span>
+        </a>
+        <a href="#profil" class="nav-item">
+          <i class="fas fa-user-circle"></i>
+          <span>Mes informations</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <div class="navbar-welcome">
+          <i class="fas fa-wave-hand"></i>
+          <span>Bienvenue, Jean Dupont</span>
+        </div>
+        <div class="navbar-user">
+          <div class="user-profile">
+            <img src="https://unsplash.com/photos/a-wooden-library-filled-with-books-ix61qSAq2Fw" alt="Profile"
+              class="user-avatar">
+            <span class="user-name">Jean Dupont</span>
+          </div>
+          <a href="#" class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Déconnexion</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- PAGE CONTENT -->
+      <div class="page-content">
+        <div class="page-header">
+          <h2 class="page-title">Catalogue de Livres</h2>
+          <p class="page-subtitle">Découvrez notre collection complète de livres et empruntez vos favoris</p>
+        </div>
+
+        <!-- SEARCH & FILTER BAR -->
+        <div class="search-filter-bar">
+          <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Rechercher un livre, un auteur...">
+          </div>
+          <select class="filter-select">
+            <option value="">Toutes les catégories</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Science-Fiction">Science-Fiction</option>
+            <option value="Développement">Développement</option>
+            <option value="Biographie">Biographie</option>
+            <option value="Mystère">Mystère</option>
+            <option value="Romance">Romance</option>
+          </select>
+        </div>
+
+        <!-- BOOKS GRID -->
+        <div class="books-grid">
+          <!-- Livre 1 -->
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=300&h=400&fit=crop"
+                alt="The Great Gatsby">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">The Great Gatsby</h3>
+              <p class="book-author">par F. Scott Fitzgerald</p>
+              <div class="book-meta">
+                <span class="book-category">Fiction</span>
+                <span class="book-availability">
+                  <span class="availability-badge available"></span>
+                  Disponible
+                </span>
+              </div>
+              <div class="book-actions">
+                <button class="btn-details">
+                  <i class="fas fa-eye"></i>
+                  <span>Voir détails</span>
+                </button>
+                <button class="btn-borrow">
+                  <i class="fas fa-download"></i>
+                  <span>Emprunter</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Livre 2 -->
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=300&h=400&fit=crop" alt="Dune">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">Dune</h3>
+              <p class="book-author">par Frank Herbert</p>
+              <div class="book-meta">
+                <span class="book-category">Science-Fiction</span>
+                <span class="book-availability">
+                  <span class="availability-badge available"></span>
+                  Disponible
+                </span>
+              </div>
+              <div class="book-actions">
+                <button class="btn-details">
+                  <i class="fas fa-eye"></i>
+                  <span>Voir détails</span>
+                </button>
+                <button class="btn-borrow">
+                  <i class="fas fa-download"></i>
+                  <span>Emprunter</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Livre 3 -->
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=400&fit=crop"
+                alt="Clean Code">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">Clean Code</h3>
+              <p class="book-author">par Robert C. Martin</p>
+              <div class="book-meta">
+                <span class="book-category">Développement</span>
+                <span class="book-availability">
+                  <span class="availability-badge unavailable"></span>
+                  Indisponible
+                </span>
+              </div>
+              <div class="book-actions">
+                <button class="btn-details">
+                  <i class="fas fa-eye"></i>
+                  <span>Voir détails</span>
+                </button>
+                <button class="btn-borrow disabled" disabled>
+                  <i class="fas fa-download"></i>
+                  <span>Emprunter</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Livre 4 -->
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=300&h=400&fit=crop"
+                alt="Steve Jobs">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">Steve Jobs</h3>
+              <p class="book-author">par Walter Isaacson</p>
+              <div class="book-meta">
+                <span class="book-category">Biographie</span>
+                <span class="book-availability">
+                  <span class="availability-badge available"></span>
+                  Disponible
+                </span>
+              </div>
+              <div class="book-actions">
+                <button class="btn-details">
+                  <i class="fas fa-eye"></i>
+                  <span>Voir détails</span>
+                </button>
+                <button class="btn-borrow">
+                  <i class="fas fa-download"></i>
+                  <span>Emprunter</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Livre 7 -->
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=300&h=400&fit=crop" alt="1984">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">1984</h3>
+              <p class="book-author">par George Orwell</p>
+              <div class="book-meta">
+                <span class="book-category">Fiction</span>
+                <span class="book-availability">
+                  <span class="availability-badge unavailable"></span>
+                  Indisponible
+                </span>
+              </div>
+              <div class="book-actions">
+                <button class="btn-details">
+                  <i class="fas fa-eye"></i>
+                  <span>Voir détails</span>
+                </button>
+                <button class="btn-borrow disabled" disabled>
+                  <i class="fas fa-download"></i>
+                  <span>Emprunter</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Livre 8 -->
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=300&h=400&fit=crop"
+                alt="Foundation">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">Foundation</h3>
+              <p class="book-author">par Isaac Asimov</p>
+              <div class="book-meta">
+                <span class="book-category">Science-Fiction</span>
+                <span class="book-availability">
+                  <span class="availability-badge available"></span>
+                  Disponible
+                </span>
+              </div>
+              <div class="book-actions">
+                <button class="btn-details">
+                  <i class="fas fa-eye"></i>
+                  <span>Voir détails</span>
+                </button>
+                <button class="btn-borrow">
+                  <i class="fas fa-download"></i>
+                  <span>Emprunter</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Livre 9 -->
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=300&h=400&fit=crop"
+                alt="Design Patterns">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">Design Patterns</h3>
+              <p class="book-author">par Gang of Four</p>
+              <div class="book-meta">
+                <span class="book-category">Développement</span>
+                <span class="book-availability">
+                  <span class="availability-badge available"></span>
+                  Disponible
+                </span>
+              </div>
+              <div class="book-actions">
+                <button class="btn-details">
+                  <i class="fas fa-eye"></i>
+                  <span>Voir détails</span>
+                </button>
+                <button class="btn-borrow">
+                  <i class="fas fa-download"></i>
+                  <span>Emprunter</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pagination">
+          <span class="disabled">← Précédent</span>
+          <a class="active">1</a>
+          <a class="disabled">2</a>
+          <a class="disabled">3</a>
+          <span>...</span>
+          <a href="#">Suivant →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
